@@ -1,0 +1,78 @@
+#include<iostream>
+#include <chrono>
+using namespace std;
+class stack_arr{
+private:
+    int *arr;
+    int top;
+    int size;
+public:
+    stack_arr(int sizes){
+
+        arr=new int[sizes];
+        top=-1;
+        size=sizes;
+    }
+    void push(int data){
+        top+=1;
+        if (top>size){
+            cout<<"stack overflow";
+        }
+        else{
+            arr[top]=data;
+        }
+    }
+    int pop(){
+        if(top<0){
+            cout<<"stack underflow";
+        }
+        else{
+            int last=arr[top];
+            top-=1;
+            return last;
+        }
+    }
+    void display(){
+        for(int i=0;i<=top;i++){
+            cout<<arr[top-i]<<" ";
+        }
+        cout<<endl;
+    }
+};
+
+int main(){
+
+    auto start = chrono::steady_clock::now();
+    auto end1 = chrono::steady_clock::now();
+    stack_arr*stackarr=new stack_arr(20);
+    stackarr->push(8);
+    stackarr->push(10);
+    stackarr->push(5);
+    stackarr->push(11);
+    stackarr->push(15);
+    stackarr->push(23);
+    stackarr->push(6);
+    stackarr->push(18);
+    stackarr->push(20);
+    stackarr->push(17);
+    stackarr->display();
+    stackarr->pop();
+    stackarr->pop();
+    stackarr->pop();
+    stackarr->pop();
+    stackarr->pop();
+    stackarr->display();
+    stackarr->push(4);
+    stackarr->push(30);
+    stackarr->push(3);
+    stackarr->push(1);
+    stackarr->display();
+    auto end2 = chrono::steady_clock::now();
+
+    auto diff1 = end1 - start;
+    auto diff2 = end2 - end1;
+
+    cout <<"time for linkedlist stack="<< chrono::duration <double, milli> (diff2).count() << " ms" << endl;
+
+    return 0;
+}
